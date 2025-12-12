@@ -4,15 +4,20 @@ import com.co.ecommerce.BaseTest;
 import com.co.ecommerce.pageobjects.*;
 import com.co.ecommerce.reports.ExtentReportUtil;
 import io.cucumber.java.After;
+import io.cucumber.java.AfterStep;
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.apache.commons.io.FileUtils;
 import org.junit.Assert;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
@@ -121,8 +126,23 @@ public class BankStepDefinition extends BaseTest {
         }
     }
 
+    @AfterStep
+    public void captureStepScreenshoots(Scenario scenario){
+            final byte[] screenshot=((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
+            scenario.attach(screenshot,"image/png","evidencia");
+            try {
+                File folder=new File("screenshoots");
+                folder.mkdirs();
+
+                String fileName="evidencia_" + System.currentTimeMillis()+ ".png";
+                File file=new File(folder,fileName);
+                FileUtils.writeByteArrayToFile(file,screenshot);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+    }
     @After(order = 1000)
-    public void tearDown() {
+    public void tearDown(Scenario scenario) {
         super.tearDown();
         ExtentReportUtil.flushReport();
     }
