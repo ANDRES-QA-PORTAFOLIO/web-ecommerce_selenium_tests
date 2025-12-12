@@ -44,3 +44,4 @@ build/
 *.tmp
 .idea/workspace.xml
 .idea/codeStyles/
+/screenshoots/
