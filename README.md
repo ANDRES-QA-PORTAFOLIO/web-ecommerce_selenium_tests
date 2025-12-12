@@ -1,4 +1,4 @@
-# ecommerce_selenium_demo
+# ecommerce_selenium_tests
 
 # Automatización de Pruebas con Selenium, JUnit y Cucumber
 Este repositorio contiene una suite de pruebas automatizadas utilizando Selenium WebDriver junto con JUnit y Cucumber para realizar pruebas de comportamiento (BDD) utilizando Gherkin. La aplicación de demostración simula un sistema bancario para pruebas automatizadas.
